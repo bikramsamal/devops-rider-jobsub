@@ -1,0 +1,20 @@
+Read the following documentation before proceeding:
+https://confluence.ellucian.com/display/COPS/dbvolume_convert.pl
+
+NOTE: The databases will be shut down and restarted as part of the dbvolume_convert.pl tool and thus requires both assurance and applications teams to validate that all applications are shutdown before this change begins and are started back up and validated after this change is completed.
+
+Pre-Requisites (see https://confluence.ellucian.com/display/COPS/dbvolume_convert.pl for details)
+Ensure that the ec2 instance has the <site>_bnrd_ec2 IAM Role - this can be seen in the AWS console
+
+Ensure the IAM policy is set correct - if not, contact the Platform team to fix - 
+
+Execute the following (as root) prior to execution: 
+orainstance.sh DWTEST status
+If you are prompted to enter information you must fix svc_oracle's .bash_profile to set ORAENV_ASK=NO prior to the .oraenv command
+
+0.  Confirm that EOC has managed affected CI's.  Be sure to include all servers that will be affected by the database(s) being converted.
+
+1. perform backup of each database being converted ( /u02 and /u03) using SOAP portal: https://soap.elluciancloud.com/
+@lucibot snapshot riderdlumduva01 /u01 	snap-0f2eeebee895c3806
+@lucibot snapshot riderdlumduva01 /u02	snap-07cbf7642ea7f6f63
+@lucibot snapshot riderdlumduva01 /u03	snap-07cbf7642ea7f6f63
