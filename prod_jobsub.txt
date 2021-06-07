@@ -1,0 +1,2 @@
+# This is prod jobsub file.
+TNS_ADMIN=$ORACLE_HOME/network/admin.
