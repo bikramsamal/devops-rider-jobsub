@@ -1,2 +1,40 @@
 # This is prod jobsub file.
 TNS_ADMIN=$ORACLE_HOME/network/admin.
+Student 8.21 -->
+Error :
+banner_ddl.create_index(
+3 p_table =>'SMTCRSE',
+4 p_index =>'SMTCRSE_INDEX1',
+5 p_cols =>'SMTCRSE_PIDM, SMTCRSE_REQUEST_NO, SMTCRSE_TERM_CODE, SMTCRSE_SUBJECT, SMTCRSE_CRSE_NUMB',
+6 p_unique_flag =>'N',
+7 p_initial_extent => '&MMEDINX_INITIAL_EXTENT',
+8 p_next_extent => '&MMEDINX_NEXT_EXTENT',
+9 p_min_extents => '&MMEDINX_MIN_EXTENTS',
+10 p_max_extents => '&MMEDINX_MAX_EXTENTS',
+11 p_pct_increase => '&MMEDINX_PCT_INCREASE',
+12 p_tablespace => '&MMEDINX_TABLESPACE_NAME',
+13 p_pct_free => '&MMEDINX_PCT_FREE');
+14
+15 END;
+16 /
+BEGIN
+*
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+ORA-06512: at "SATURN.BANNER_DDL", line 100
+ORA-06512: at "SATURN.BANNER_DDL", line 88
+ORA-06512: at "SATURN.BANNER_DDL", line 579
+ORA-06512: at line 2
+
+Drop the index and continue with upgrade (known issue).
+drop index saturn.SMTCRSE_INDEX1;
+
+
+
+General 8.13 --> Make sure that all the following are down :
+Gurjobs, sleepwake, shradvq, sfradvq,Finaid queues, clean address.
+WHen running the final gurutlrp process, it took forever and found that degreeworks process was blocking , hence had to kill that process. It is better that all apps are shutdown for this upgrade.
+
+
+
+
